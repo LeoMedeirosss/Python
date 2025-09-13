@@ -1,26 +1,41 @@
-variable "aws_region" { type = string }
-variable "db_subnet_group" { type = string }
-variable "vpc_security_group_id" { type = string }
-variable "tags" { type = map(string) }
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg"
+  description = "Allow MySQL from EC2"
+  vpc_id      = var.vpc_id
 
-provider "aws" { region = var.aws_region }
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [var.vpc_security_group_id]
+  }
 
-resource "aws_db_instance" "mysql" {
-  allocated_storage    = 20
-  engine               = "mysql"
-  engine_version       = "8.0"
-  instance_class       = "db.t2.micro"
-  name                 = "lmfdb"
-  username             = "lmfadmin"
-  password             = "ChangeMe123!" # CHANGE in production
-  parameter_group_name = "default.mysql8.0"
-  skip_final_snapshot  = true
-  publicly_accessible  = false
-  vpc_security_group_ids = [var.vpc_security_group_id]
-  db_subnet_group_name = var.db_subnet_group
-  tags = merge(var.tags, { Name = "lmf-mysql" })
-  port = 3306
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = var.tags
 }
-output "db_endpoint" {
-  value = aws_db_instance.mysql.endpoint
+
+resource "aws_db_instance" "this" {
+  allocated_storage      = 20
+  engine                 = "mysql"
+  engine_version         = "8.0"
+  instance_class         = "db.t2.micro"
+  username               = "admin"
+  password               = "admin1234"
+  skip_final_snapshot    = true
+  db_subnet_group_name   = var.db_subnet_group
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+
+  tags = merge(var.tags, {
+    Name = "lmf-hcmr-rds"
+  })
+}
+
+output "endpoint" {
+  value = aws_db_instance.this.endpoint
 }

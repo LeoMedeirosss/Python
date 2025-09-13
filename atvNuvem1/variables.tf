@@ -1,21 +1,23 @@
 variable "aws_region" {
   description = "AWS region"
-  type = string
-  default = "us-east-1"
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "backend_bucket" {
-  description = "S3 bucket name for Terraform state backend (must exist)"
-  type = string
-  default = "lmf-dupla-tfstate-0001"
+  description = "Nome do bucket S3 para armazenar o estado remoto"
+  type        = string
+  default     = "lmf-hcmr-tfstate"
 }
 
 variable "tag_aluno" {
-  type = string
-  default = "LMF"
+  description = "Tag de identificação do aluno"
+  type        = string
+  default     = "lmf-hcmr"
 }
 
 variable "tag_periodo" {
-  type = string
-  default = "8"
+  description = "Tag do período"
+  type        = string
+  default     = "8"
 }
