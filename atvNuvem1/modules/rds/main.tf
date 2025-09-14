@@ -39,3 +39,4 @@ resource "aws_db_instance" "this" {
 output "db_endpoint" {
   value = aws_db_instance.this.endpoint
 }
+
