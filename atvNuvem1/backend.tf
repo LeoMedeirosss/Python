@@ -1,8 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = var.backend_bucket
+    bucket = "terraform-lmf-hcmr-bucket"   # Nome do bucket S3 criado manualmente
     key    = "terraform.tfstate"
-    region = var.aws_region
-    encrypt = true
+    region = "us-west-2"
   }
 }

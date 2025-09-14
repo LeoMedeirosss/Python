@@ -5,5 +5,5 @@ output "ec2_public_ip" {
 
 output "rds_endpoint" {
   description = "Endpoint do banco de dados RDS"
-  value       = module.rds.endpoint
+  value       = module.rds.db_endpoint
 }

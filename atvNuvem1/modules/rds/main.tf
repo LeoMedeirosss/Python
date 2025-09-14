@@ -27,15 +27,15 @@ resource "aws_db_instance" "this" {
   instance_class         = "db.t2.micro"
   username               = "admin"
   password               = "admin1234"
-  skip_final_snapshot    = true
   db_subnet_group_name   = var.db_subnet_group
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  skip_final_snapshot    = true
 
   tags = merge(var.tags, {
     Name = "lmf-hcmr-rds"
   })
 }
 
-output "endpoint" {
+output "db_endpoint" {
   value = aws_db_instance.this.endpoint
 }
