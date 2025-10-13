@@ -1,0 +1,10 @@
+aws_region           = "eu-central-1"
+cluster_name         = "eksDeepDiveFrankfurt"
+vpc_name             = "eksDeepDiveFrankfurt-vpc"
+security_group_name  = "eksDeepDiveFrankfurt-sg"
+node_group_name      = "lmf-hcmr-node-group"           # <-- altere com o número da sua dupla
+node_role_arn        = "arn:aws:iam::123456789012:role/eks-node-role" # <-- copie do IAM
+todo_image           = "docker.io/seuusuario/todo-list:latest"        # <-- coloque sua imagem Docker
+scaling_min          = 1
+scaling_desired      = 1
+scaling_max          = 2
