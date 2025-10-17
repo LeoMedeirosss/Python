@@ -14,6 +14,14 @@ terraform {
 
 provider "aws" {
   region = var.region
+  
+  # Garantir que a região esteja configurada
+  default_tags {
+    tags = {
+      Environment = "production"
+      Project     = "todo-app"
+    }
+  }
 }
 
 # Provedor Kubernetes configurado via credenciais do cluster EKS existente

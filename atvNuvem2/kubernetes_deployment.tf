@@ -26,7 +26,7 @@ resource "kubernetes_deployment_v1" "todo_app" {
       spec {
         container {
           name  = "todo-list"
-          image = var.app_image
+          image = var.todo_image
           port {
             container_port = 80
           }
@@ -34,6 +34,9 @@ resource "kubernetes_deployment_v1" "todo_app" {
       }
     }
   }
+
+  # Aguardar o Node Group estar pronto
+  depends_on = [aws_eks_node_group.todo_app_node_group]
 }
 
 # Service para expor a aplicação
@@ -55,4 +58,7 @@ resource "kubernetes_service_v1" "todo_app_svc" {
 
     type = "LoadBalancer"
   }
+
+  # Aguardar o Node Group estar pronto
+  depends_on = [aws_eks_node_group.todo_app_node_group]
 }

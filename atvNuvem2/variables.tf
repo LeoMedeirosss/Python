@@ -1,6 +1,12 @@
 variable "region" {
   description = "Região da AWS onde o cluster está localizado"
+  type        = string
   default     = "eu-central-1"
+  
+  validation {
+    condition     = can(regex("^[a-z0-9-]+$", var.region))
+    error_message = "A região deve ser um identificador válido da AWS."
+  }
 }
 
 variable "cluster_name" {
@@ -32,4 +38,53 @@ variable "node_role_arn" {
 variable "app_image" {
   description = "Imagem Docker da aplicação To-do List"
   default     = "SEU_USUARIO_DOCKER/todo-list:latest" # <-- altere aqui
+}
+
+# Variáveis adicionais do terraform.tfvars
+variable "aws_region" {
+  description = "Região da AWS (alias para region)"
+  type        = string
+  default     = "eu-central-1"
+}
+
+variable "vpc_name" {
+  description = "Nome da VPC"
+  type        = string
+  default     = "eksDeepDiveFrankfurt-vpc"
+}
+
+variable "security_group_name" {
+  description = "Nome do Security Group"
+  type        = string
+  default     = "eksDeepDiveFrankfurt-sg"
+}
+
+variable "node_group_name" {
+  description = "Nome do Node Group"
+  type        = string
+  default     = "lmf-hcmr-node-group"
+}
+
+variable "todo_image" {
+  description = "Imagem Docker da aplicação To-do List (alias para app_image)"
+  type        = string
+  default     = "docker.io/seuusuario/todo-list:latest"
+}
+
+variable "scaling_min" {
+  description = "Número mínimo de réplicas"
+  type        = number
+  default     = 1
+}
+
+variable "scaling_desired" {
+  description = "Número desejado de réplicas"
+  type        = number
+  default     = 1
+}
+
+variable "scaling_max" {
+  description = "Número máximo de réplicas"
+  type        = number
+  default     = 2
 }
