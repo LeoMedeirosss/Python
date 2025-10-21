@@ -26,7 +26,7 @@ resource "kubernetes_deployment_v1" "todo_app" {
       spec {
         container {
           name  = "todo-list"
-          image = var.todo_image
+          image = "nginx:latest"
           port {
             container_port = 80
           }
