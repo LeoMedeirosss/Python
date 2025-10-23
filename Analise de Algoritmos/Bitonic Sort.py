@@ -55,3 +55,4 @@ print("\nVetor ordenado:")
 print(a)  # Imprime o array após a ordenação
 
 #, 23, 4, 3, 2, 30, 7, 19, 28
+
