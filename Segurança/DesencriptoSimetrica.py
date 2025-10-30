@@ -17,6 +17,6 @@ iv = b'\xc41S\x8d\x1aXC\x0c\xeebI\xbf'   # Substituir pelo IV real gerado
 texto_cifrado = b':,\x19\xb2f\xcf>\xe3\xa4@\x8dZ'  # Substituir pelo texto cifrado real gerado
 tag = b'd\x93\x0e\x86\xda\xc6\x0e@\xec\x9bmpL\xb6uG'  # Substituir pela tag real gerada
 
-texto_decifrado = descriptografar(iv, texto_cifrado, tag, key)
+texto_decifrado = descriptografar(iv, texto_cifrado, tag, key) 
     
 print("Texto decifrado:", texto_decifrado)
